@@ -1,0 +1,3 @@
+<view a:for="{{ pokemon }}" a:for-item="item">
+  {{item.name}}
+</view>

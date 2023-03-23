@@ -1,5 +1,12 @@
+<!--view class="contenido">
+  <grid onGridItemClick="onItemClick" columnNum="{{3}}" list="{{ pokemon }}" />
+</view-->
 
-    <grid onGridItemClick="onItemClick" infinite="true" columnNum="{{3}}" list="{{pokemon}}" />
+<view a:for="{{ pokemon }}" a:for-item="item">
+  {{ item.name }} 
+</view>
+
+
 
 
 

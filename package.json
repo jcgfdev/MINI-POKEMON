@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "mini-antui": "^0.5.2",
+    "upper-case": "^2.0.2"
+  }
+}

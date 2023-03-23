@@ -1,6 +1,7 @@
 {
   "pages": [
-    "pages/index/index"    
+    "pages/consumo2/consumo2",
+    "pages/index/index"
   ],
   "window": {
     "defaultTitle": "My App"
