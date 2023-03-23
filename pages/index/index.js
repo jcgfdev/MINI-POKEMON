@@ -1,87 +1,65 @@
 Page({
-  data:{
-    pokemon:[],
-    list3: [
-      {
-        icon: 'https://img.example.com/example1.png',
-        text: 'Titulo',
-        desc: 'text',
+      data: {
+        pokemon: [],
+        colorP: ""
       },
-      {
-        icon: 'https://img.example.com/example2.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example3.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example4.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example5.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example6.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example7.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example8.png',
-        text: 'Title',
-        desc: 'text',
-      },
-      {
-        icon: 'https://img.example.com/example9.png',
-        text: 'Title',
-        desc: 'text',
-      },
-    ],
-    onItemClick(ev) {
-      my.alert({
-        content: ev.detail.index,
-      });
-    },
+
+      async servicioColr(id) {
+        const response = await my.request({
+          url: `https://pokeapi.co/api/v2/pokemon-species/${id}/`,
+          method: 'GET',
+          dataType: 'json',
+          success: function (res) {              
+            this.setData({colorP:res.data.color.name})  
+            console.log(this.data.colorP)        
+            // return res.data.color.name;
+          }
+      })
+
+    
   },
-  
-  
+
   onLoad() {
-      this.servicioGet();
-    },
-      servicioGet(){
+    this.servicioGet();
+    // console.log(await this.servicioColr(1));
+  },
+
+
+
+  async servicioGet() {
       let prueba;
       my.httpRequest({
-        url: 'https://pokeapi.co/api/v2/pokemon-species?offset=0&limit=4',        
-      }).then((res2) => {   
-        prueba = res2.data.results;    
-
+        url: 'https://pokeapi.co/api/v2/pokemon-species?offset=0&limit=105',
+      }).then((res2) => {
+        prueba = res2.data.results;
+        this.servicioColr(1)
+        console.log(this.data.colorP)
         let arr = Array();
-      prueba.forEach(item => {
-        arr.push({
-          nombre:item.name      
-         
-        });        
-      });    
-       
-        this.setData({pokemon:arr}); 
+        prueba.forEach(item => {
+          let aux = item.url.split('/');
 
-        console.log(this.data.list3);
+
+          arr.push({
+            nombre: item.name,
+            imagen: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${aux[6]}.svg`,
+            color: ""
+          });
+        });
+
+        this.setData({
+          pokemon: arr
+        });
+
+        // console.log(this.data.colorPokemon)
         console.log(this.data.pokemon);
-      
-        },(res) => {     
+        // console.log(this.data.list3);
+
+      }, (res) => {
         console.log(res.error, res.errorMessage);
       })
-    }
- 
+    },
+
+
+
+
 });

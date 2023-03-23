@@ -1,5 +1,5 @@
 
-    <grid onGridItemClick="onItemClick" infinite="true" columnNum="{{3}}" list="{{pokemon}}" />
+    <grid onGridItemClick="onItemClick"  columnNum="{{3}}" list="{{pokemon}}" />
 
 
 
