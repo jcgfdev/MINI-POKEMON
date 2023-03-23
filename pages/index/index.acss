@@ -1,3 +1,4 @@
-.prueba{
+.contenido{
   width: 100%;
+  background-color: blue;
 }
