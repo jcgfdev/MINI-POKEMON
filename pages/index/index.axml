@@ -1,3 +1,9 @@
-<view>
-  this is a blank page
+
+ <view a:for="{{ pokemon }}" a:for-item="item">
+   {{item.nombre}}
+ </view>
+
+
+ <view>
+  {{pokemon.data.nombre}}
 </view>

@@ -1,35 +1,48 @@
 Page({
-  onLoad(query) {
-    // Page load
-    console.info(`Page onLoad with query: ${JSON.stringify(query)}`);
+  data: {
+    pokemon: [],   
   },
-  onReady() {
-    // Page loading is complete
+
+  async servicioColr(id) {
+    try {
+      const response = await my.request({
+        url: `https://pokeapi.co/api/v2/pokemon-species/${id}/`,
+        method: 'GET',
+        dataType: 'json',
+      });
+      return response.data.color.name;
+    } catch (error) {
+      console.error(error);
+    }
   },
-  onShow() {
-    // Page display
+
+  onLoad() {
+    this.servicioGet();
   },
-  onHide() {
-    // Page hidden
-  },
-  onUnload() {
-    // Page is closed
-  },
-  onTitleClick() {
-    // Title clicked
-  },
-  onPullDownRefresh() {
-    // Page is pulled down
-  },
-  onReachBottom() {
-    // Page is pulled to the bottom
-  },
-  onShareAppMessage() {
-    // Back to custom sharing information
-    return {
-      title: 'My App',
-      desc: 'My App description',
-      path: 'pages/index/index',
-    };
+
+  servicioGet() {
+    let prueba;
+    my.httpRequest({
+      url: 'https://pokeapi.co/api/v2/pokemon-species?offset=0&limit=5',
+    }).then((res2) => {
+      prueba = res2.data.results;
+      let arr = Array();
+      prueba.forEach(item => {
+        let aux = item.url.split('/');
+        this.servicioColr(aux[6]).then(res => {
+          arr.push({
+            nombre: item.name,
+            imagen: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${aux[6]}.svg`,
+            color: res
+          });
+        })
+      });
+      this.setData({
+        pokemon: arr
+      });
+      console.log(this.data.pokemon);
+    }, (res) => {
+      console.log(res.error, res.errorMessage);
+    })
   },
 });

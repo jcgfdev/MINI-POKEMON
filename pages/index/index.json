@@ -1,1 +1,6 @@
-{}
+{
+  "defaultTitle": "AntUI Component Library",
+  "usingComponents": {
+    "grid": "mini-antui/es/grid/index"
+  }
+}
